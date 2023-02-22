@@ -11,13 +11,19 @@ fetch('https://fakestoreapi.com/products')
             ).render()
 
         }),
-        data.forEach(btn => {
-            new Button(
-                btn.category,
-                '.header'
-            ).render()
+            data.map(title => title.category)
+                .reduce((result, item) => {
+                    return result.includes(item) ? result : [...result, item];
+                }, [])
+                .forEach(btn => {
+                    console.log(btn)
+                    btn = btn[0].toUpperCase() + btn.slice(1);
+                    new Button(
+                        btn,
+                        '.header'
+                    ).render()
 
-        })
+                })
     })
 
 
@@ -59,9 +65,9 @@ class Cart {
             <img class="cart__img" src=${this.image} alt="">
             <div class="cart__titile">${this.title}</div>
             <div class="cart__descr">${this.description}</div>
-            <div class="cart__price">${this.price}</div>
+            <div class="cart__price">${this.price}$ </div>
             <div class="cart__bottom">
-                <div class="button cart__buy">Byu</div>
+                <div class="button cart__buy">Favorite</div>
                 <div class="button cart__card">Add card</div>
             </div>
             `
